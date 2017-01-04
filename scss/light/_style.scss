@@ -1,0 +1,347 @@
+.noti {
+
+  padding: 12px;
+  width: $noti-width;
+  @media screen and (max-width: 414px) {
+    width: 100%;
+  }
+  position: fixed;
+  perspective: 1000px;
+
+  &--top-right {
+    top: 0;
+    right: 0;
+  }
+  &--top-center {
+    top: 0;
+    left: calc(50%);
+    transform: translateX(-50%);
+  }
+  &--top-left {
+    top: 0;
+    left: 0;
+  }
+  &--bottom-right {
+    bottom: 0;
+    right: 0;
+  }
+  &--bottom-center {
+    bottom: 0;
+    left: calc(50%);
+    transform: translateX(-50%);
+  }
+  &--bottom-left {
+    bottom: 0;
+    left: 0;
+  }
+
+  &-item {
+    border-radius: $border-radius-sm;
+
+    padding-left: $icon-container-width;
+    padding-right: $close-btn-width;
+
+    position: relative;
+
+    animation-name: hideNoti;
+    animation-fill-mode: forwards;
+    animation-duration: $animation-duration;
+
+    &.open {
+      margin-bottom: 12px;
+      animation-name: showNoti;
+      animation-duration: $animation-duration;
+    }
+
+
+    &--default {
+
+      background-color: $default-background;
+      box-shadow: 0 0 0 1px $default-shadow;
+
+      & .noti__object {
+        background-color: $default-object-background;
+      }
+
+      & .noti__icon {
+        background-image: url($default-icon);
+      }
+
+      & .noti__close {
+
+        &::before,
+        &::after {
+          background-color: $default-foreground;
+        }
+
+      }
+
+      & .noti__body {
+        color: $default-foreground;
+      }
+
+    }
+
+    &--success {
+
+      background-color: $success-background;
+      box-shadow: 0 0 0 1px $success-shadow;
+
+      & .noti__object {
+        background-color: $success-object-background;
+      }
+
+      & .noti__icon {
+        background-image: url($success-icon);
+      }
+
+      & .noti__close {
+
+        &::before,
+        &::after {
+          background-color: $success-foreground;
+        }
+
+      }
+
+      & .noti__body {
+        color: $success-foreground;
+      }
+
+    }
+
+    &--warning {
+
+      background-color: $warning-background;
+      box-shadow: 0 0 0 1px $warning-shadow;
+
+      & .noti__object {
+        background-color: $warning-object-background;
+      }
+
+      & .noti__icon {
+        background-image: url($warning-icon);
+      }
+
+      & .noti__close {
+
+        &::before,
+        &::after {
+          background-color: $warning-foreground;
+        }
+
+      }
+
+      & .noti__body {
+        color: $warning-foreground;
+      }
+
+    }
+
+    &--error {
+
+      background-color: $error-background;
+      box-shadow: 0 0 0 1px $error-shadow;
+
+      & .noti__object {
+        background-color: $error-object-background;
+      }
+
+      & .noti__icon {
+        background-image: url($error-icon);
+      }
+
+      & .noti__close {
+
+        &::before,
+        &::after {
+          background-color: $error-foreground;
+        }
+
+      }
+
+      & .noti__body {
+        color: $error-foreground;
+      }
+
+    }
+
+  }
+
+  &__object {
+    border-radius: $border-radius-sm 0 0 $border-radius-sm;
+    height: 100%;
+    width:  $icon-container-width;
+    position: absolute;
+    left: 0;
+  }
+
+  &__icon {
+    border-radius: $border-radius-lg;
+    height: $icon-width;
+    width:  $icon-width;
+    margin: $body-padding-vertical auto;
+  }
+
+  &__body {
+    font-family: $font-family;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    line-height: 1.5;
+    padding: $body-padding-vertical $body-padding-horizontal;
+  }
+
+  &__close {
+    border-radius: 0 $border-radius-sm 0 $border-radius-sm;
+    cursor: pointer;
+
+    height: $close-btn-width;
+    width: $close-btn-width;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      height: 2px;
+      width: 15px;
+      position: relative;
+      left: 8px;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+      top: 14px;
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+      top: 12px;
+    }
+
+  }
+
+  &__clear {
+    background-color: transparent;
+    border-radius: $border-radius-lg;
+    border: 2px solid $clear-btn-border-color;
+
+    cursor: pointer;
+
+    height: $clear-btn-width;
+    width:  $clear-btn-width;
+
+    position: relative;
+    bottom: 0;
+    right: 0;
+
+    animation-name: hideNoti;
+    animation-duration: $animation-duration;
+
+    &.open {
+
+      animation-name: showNoti;
+      animation-duration: $animation-duration;
+
+        &:hover {
+          transform: scaleX(1.1) scaleY(1.1) rotate(90deg);
+        }
+
+        &:active {
+          transform: scaleX(1.2) scaleY(1.2) rotate(90deg);
+
+          &::before,
+          &::after {
+            opacity: .1;
+            width: 20px;
+            left: 7px;
+            transition:
+              opacity .35s 0s ease,
+              top .35s 0s ease,
+              left .35s 0s ease,
+              width .35s 0s ease;
+          }
+
+          &::before {
+            top: 17px;
+          }
+
+          &::after {
+            top: 15px;
+          }
+
+        }
+
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      background: $clear-btn-icon-color;
+      display: block;
+      height: 2px;
+      width: 14px;
+      position: relative;
+      left: 11px;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+      top: 17px;
+
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+      top: 15px;
+    }
+
+  }
+
+}
+
+// -----------------------------------------------------------------------------
+// animations
+// -----------------------------------------------------------------------------
+
+@keyframes showNoti {
+
+  0% {
+    margin-bottom: 0px;
+    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0) scaleX(.75) rotateX(90deg) translateY(-100%);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    margin-bottom: 12px;
+    max-height: 180px;
+    transform: scaleY(1) scaleX(1) rotateX(0) translateY(0);
+  }
+
+}
+
+@keyframes hideNoti {
+
+  0% {
+    margin-bottom: 12px;
+    max-height: 180px;
+    opacity: 1;
+    transform: scaleY(1) rotateX(0);
+  }
+
+  100% {
+    margin-bottom: 0px;
+    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0) rotateX(90deg);
+  }
+
+}

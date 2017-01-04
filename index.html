@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NOTI javascript plugin</title>
+    <link rel="shortcut icon" href="docs/img/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,500" rel="stylesheet">
+    <link rel="stylesheet" href="docs/css/normalize.css">
+    <link rel="stylesheet" href="docs/css/style.css">
+    <link rel="stylesheet" href="css/noti-dark.css">
+  </head>
+  <body>
+
+    <section>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="container">
+          <img class="logo" src="docs/img/notilogolight.svg" alt="Noti javascript plugin">
+          <br>
+          <br>
+          <h2>plain javascript popup plugin</h2>
+          <br>
+          <p class="lead">NOTI is a notifier plugin written in plain JavaScript with no dependecies needed. Just load it and fire it up. It’s fully custimizable via plugin options and CSS.</p>
+          <br>
+          <br>
+          <div class="button-group">
+            <a class="button" href="#install">install</a>
+            <a class="button" href="">github</a>
+          </div>
+
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+    </section>
+
+    <div class="container" id="install">
+      <br>
+      <br>
+      <h3>install</h3>
+    </div>
+
+    <div class="container">
+      <pre class="pane">
+        <code>
+          <span class="code-comment">&lt;!-- include noti stylesheet --&gt;</span>
+          <br>
+          &lt;<span class="code-el">link</span> <span class="code-attr">rel</span>="<span class="code-prop">stylesheet</span>" <span class="code-attr">type</span>="<span class="code-prop">text/css</span>" <span class="code-attr">href</span>="<span class="code-prop">noti.min.css</span>"&gt;
+          <br>
+          <br>
+          <span class="code-comment">&lt;!-- include noti script --&gt;</span>
+          <br>
+          &lt;<span class="code-el">script</span> <span class="code-attr">src</span>="<span class="code-prop">noti.min.js</span>"&gt;&lt;/<span class="code-el">script</span>&gt;
+        </code>
+      </pre>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <section>
+
+      <div class="container" id="usage">
+        <br>
+        <br>
+        <h3>context</h3>
+      </div>
+      <div class="container">
+        <p>NOTI provides four context types: <strong>default</strong>,<strong> success</strong>, <strong>warning</strong> and <strong>error</strong></p>
+        <div class="button-group">
+          <button class="button" id="show-default">default</button>
+          <button class="button" id="show-success">success</button>
+          <button class="button" id="show-warning">warning</button>
+          <button class="button" id="show-error">error</button>
+        </div>
+      </div>
+
+      <br>
+      <div class="container" id="position">
+        <br>
+        <br>
+        <h3>position</h3>
+      </div>
+      <div class="container">
+        <p>NOTI provides six positions: <strong>top-left</strong>,<strong> top-center</strong>, <strong>top-right</strong>, <strong>bottom-left</strong>, <strong>bottom-center</strong> and <strong>bottom-right</strong></p>
+        <div class="button-group">
+          <button id="show-tl" class="button">top left</button>
+          <button id="show-tc" class="button">top center</button>
+          <button id="show-tr" class="button">top right</button>
+        </div>
+        <br>
+        <div class="button-group">
+          <button id="show-bl" class="button">bottom left</button>
+          <button id="show-bc" class="button">bottom center</button>
+          <button id="show-br" class="button">bottom right</button>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+    </section>
+
+    <br>
+    <br>
+
+    <div class="container" id="api">
+      <h3>api</h3>
+    </div>
+    <div class="container">
+      <pre class="pane">
+        <code>
+          <span class="code-el">var</span> myNoti = <span class="code-el">noti</span>({<br>
+            <span class="code-attr">&nbsp;&nbsp;content</span>: <span class="code-prop">'My super awesome content!!!'</span>,<br>
+            <span class="code-attr">&nbsp;&nbsp;autoOpen</span>: <span class="code-prop">false</span><br>
+          });
+          <br>
+          <br>
+          myNoti.<span class="code-prop">open</span>();
+          <br>
+          <br>
+          myNoti.<span class="code-prop">close</span>();
+
+          <br>
+        </code>
+      </pre>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="container" id="options">
+      <h3>options</h3>
+    </div>
+    <div class="container">
+      <pre class="pane">
+        <code>
+          <span class="code-el">noti</span>({<br>
+            <span class="code-attr">&nbsp;&nbsp;type</span>: <span class="code-prop">'default'</span>,&nbsp;<span class="code-comment">// string</span><br>
+            <span class="code-attr">&nbsp;&nbsp;content</span>: <span class="code-prop">''</span>,&nbsp;<span class="code-comment">// string</span><br>
+            <span class="code-attr">&nbsp;&nbsp;position</span>: <span class="code-prop">'top-right'</span>,&nbsp;<span class="code-comment">// string</span><br>
+            <span class="code-attr">&nbsp;&nbsp;autoOpen</span>: <span class="code-prop">true</span>,&nbsp;<span class="code-comment">// boolean</span><br>
+            <span class="code-attr">&nbsp;&nbsp;autoOpenDelay</span>: <span class="code-prop">10</span>,&nbsp;<span class="code-comment">// number</span><br>
+            <span class="code-attr">&nbsp;&nbsp;autoClose</span>: <span class="code-prop">false</span>,&nbsp;<span class="code-comment">// boolean</span><br>
+            <span class="code-attr">&nbsp;&nbsp;autoCloseDelay</span>: <span class="code-prop">1500</span>&nbsp;<span class="code-comment">// number</span><br>
+          });
+        </code>
+      </pre>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <script src="js/noti.js"></script>
+    <script src="docs/js/script.js"></script>
+
+  </body>
+</html>
