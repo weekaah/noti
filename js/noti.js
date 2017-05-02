@@ -1,127 +1,90 @@
 (function() {
-
   'use strict';
-
-  var Notifier = function () {
-
-    var self = this;
-
-    this.closeBtn;
-    this.clearBtn;
-    this.notiContainer;
-    this.notiItem;
-    this.notiBody;
-    this.notiObject;
-    this.notiIcon;
-    this.autoClose;
-
+  
+  var Notifier = function(options) {
     this.defaults = {
       type: 'default',
-      content: '',
+      content: 'You haven\'t defined \t the content',
       position: 'top-right',
       autoOpen: true,
       autoOpenDelay: 10,
       autoClose: false,
       autoCloseDelay: 1500
-    }
+    };
 
-    if (arguments[0] && typeof arguments[0] === 'object') {
-      this.options = extendDefaults(this.defaults, arguments[0]);
-    } else {
-      this.options = this.defaults
+    if (options && typeof options === 'object') {
+      this.options = extendDefaults(this.defaults, options);
     }
 
     if (this.options.autoOpen) {
-      setTimeout(function () {
-        self.open();
-      }, this.options.autoOpenDelay);
+      setTimeout(function() {
+        this.open();
+      }.bind(this), this.options.autoOpenDelay);
     }
 
     if (this.options.autoClose) {
-      this.autoClose = setTimeout(function () {
-        self.close();
-      }, self.options.autoCloseDelay);
+      this.autoClose = setTimeout(function() {
+        this.close();
+      }.bind(this), this.options.autoCloseDelay);
     }
-  }
+  }; 
 
-
-
-
-  Notifier.prototype.open = function () {
-
+  Notifier.prototype.open = function() {
     var self = this;
 
-    if (!checkForFont()) {
-      addCustomFont();
-    }
+    if (!checkForFont()) addCustomFont();
 
     buildNoti.call(this);
 
     initialiteEvents.call(this);
 
-    addClass(self.notiItem, ' open');
+    addClass(this.notiItem, ' open');
 
-    if (self.notiContainer.children.length === 2) {
+    if (this.notiContainer.children.length === 2) {
+      addRemoveAllBtn.call(this);
 
-      addRemoveAllBtn.call(self);
+      addClass(this.clearBtn, ' open');
 
-      addClass(self.clearBtn, ' open');
-
-      this.clearBtn.onclick = function () {
+      this.clearBtn.onclick = function() {
         clearTimeout(self.autoClose);
-        removeAll(this, self);
+        
+        removeAll(this);
       };
-
     }
+  };
 
-  }
-
-  Notifier.prototype.close = function () {
-
-    var self = this;
-
+  Notifier.prototype.close = function() {
     this.notiItem.className = this.notiItem.className.replace(' open', '');
 
-    addEventPrefix(this.notiItem, 'animationend', function () {
+    addEventPrefix(this.notiItem, 'animationend', function() {
+      this.notiItem.parentNode.removeChild(this.notiItem);
 
-      self.notiItem.parentNode.removeChild(self.notiItem);
-
-      if ( self.notiContainer.children.length < 2) {
-        self.notiContainer.parentNode.removeChild(self.notiContainer);
+      if (this.notiContainer.children.length < 2) {
+        this.notiContainer.parentNode.removeChild(this.notiContainer);
       }
+    }.bind(this));
+  };
 
-    });
-
-  }
-
-
-
-
-  function buildNoti () {
-
+  function buildNoti() {    
     var frag;
 
-    if ( checkForContainer(this) ) {
-
+    if (checkForContainer.call(this)) {
       this.notiContainer = document.getElementsByClassName('noti' + '--' + this.options.position)[0];
-
     } else {
-
       frag = document.createDocumentFragment();
       this.notiContainer = document.createElement('div');
       this.notiContainer.className = 'noti';
       addClass(this.notiContainer, this.notiContainer.className + '--' + this.options.position);
       frag.appendChild(this.notiContainer);
-
     }
 
     this.notiItem = document.createElement('div');
-    this.notiItem.className = 'noti-item'
-    addClass(this.notiItem, this.notiItem.className + '--' + this.options.type)
+    this.notiItem.className = 'noti-item';
+    addClass(this.notiItem, this.notiItem.className + '--' + this.options.type);
     this.notiContainer.insertBefore(this.notiItem, this.notiContainer.firstChild);
 
     this.notiObject = document.createElement('div');
-    this.notiObject.className = 'noti__object'
+    this.notiObject.className = 'noti__object';
     this.notiItem.appendChild(this.notiObject);
 
     this.notiIcon = document.createElement('div');
@@ -137,18 +100,13 @@
     this.closeBtn.className = "noti__close";
     this.notiItem.appendChild(this.closeBtn);
 
-    if ( !checkForContainer(this) ) {
+    if (!checkForContainer.call(this)) {
       document.body.appendChild(frag);
     }
-
   }
 
-
-  function addRemoveAllBtn () {
-
-    var frag;
-
-    frag = document.createDocumentFragment();
+  function addRemoveAllBtn() {
+    var frag = document.createDocumentFragment();
 
     this.clearBtn = document.createElement('div');
     this.clearBtn.className = 'noti__clear';
@@ -156,47 +114,47 @@
     frag.appendChild(this.clearBtn);
 
     this.notiContainer.appendChild(frag);
-
   }
 
-
-  function removeAll (x, y) {
-
-    var cnt = x.parentNode;
+  function removeAll(clearAllBtn) {
+    var cnt = clearAllBtn.parentNode;
 
     cnt.firstChild.className = cnt.firstChild.className.replace(' open', '');
 
-    addEventPrefix(cnt.firstChild, 'animationend', function () {
+    addEventPrefix(cnt.firstChild, 'animationend', function() {
       cnt.removeChild(cnt.firstChild);
-      if ( cnt.children.length > 0 ) {
-        removeAll(x, y);
+      
+      if (cnt.children.length > 0) {
+        removeAll(clearAllBtn);
       } else {
         cnt.parentNode.removeChild(cnt);
       }
     });
-
   }
 
-
-  function checkForContainer (x) {
-    return document.getElementsByClassName('noti' + '--' + x.options.position).length > 0;
+  function checkForContainer() {    
+    return document.getElementsByClassName('noti' + '--' + this.options.position).length > 0;
   }
 
-
-  function checkForFont () {
-
+  function checkForFont() {
     var el = document.getElementsByTagName('link'),
         check = /^https:\/\/fonts.googleapis.com\/css\?family=Roboto/;
 
-    for ( var i = 0; i < el.length; i++) {
+    for (var i = 0; i < el.length; i++) {
       if (check.test(el[i].getAttribute('href')))
         return true;
     }
+  }
 
-  };
+  function addCustomFont() {
+    var linkTag = document.createElement('link');
 
+    linkTag.setAttribute('href', 'https://fonts.googleapis.com/css?family=Roboto:100,300,500');
+    linkTag.setAttribute('rel', 'stylesheet');
+    document.head.appendChild(linkTag);
+  }
 
-  function addEventPrefix (element, type, callback) {
+  function addEventPrefix(element, type, callback) {
     var pfx = ["webkit", "moz", "MS", "o", ""];
 
     for (var i = 0; i < pfx.length; i++) {
@@ -207,43 +165,27 @@
     }
   }
 
-
-  function addCustomFont () {
-
-    var font = document.createElement('link');
-
-    font.setAttribute('href', 'https://fonts.googleapis.com/css?family=Roboto:100,300,500');
-    font.setAttribute('rel', 'stylesheet');
-    document.head.appendChild(font);
-
+  function addClass(element, cssClass) {
+    element.className += ' ' + cssClass;
   }
 
-
-  function addClass(x, y) {
-    x.className = x.className + ' ' + y;
-  }
-
-
-  function extendDefaults (source, properties) {
+  function extendDefaults(defaults, options) {
     var property;
 
-    for (property in properties) {
-      if (properties.hasOwnProperty(property)) {
-        source[property] = properties[property];
+    for (property in options) {
+      if (options.hasOwnProperty(property)) {
+        defaults[property] = options[property];
       }
     }
 
-    return source;
+    return defaults;
   }
 
-
-  function initialiteEvents () {
+  function initialiteEvents() {
     this.closeBtn.addEventListener('click', this.close.bind(this));
   }
 
-
-  window.noti = function (x) {
-    return new Notifier(x);
+  window.noti = function(options) {
+    return new Notifier(options);
   };
-
 })();
