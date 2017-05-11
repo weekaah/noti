@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>NOTI javascript plugin</title>
-    <link rel="shortcut icon" href="docs/img/favicon.png">
+    <link rel="shortcut icon" href="/img/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,500" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:300" rel="stylesheet"> -->
     <link rel="stylesheet" href="docs/css/normalize.css">
     <link rel="stylesheet" href="docs/css/style.css">
-    <link rel="stylesheet" href="css/noti-dark.css">
+    <link rel="stylesheet" href="docs/noti/noti-dark.min.css">
   </head>
-  <body>
+  <body class="dark body">
 
     <section>
 
@@ -19,7 +20,7 @@
       <br>
 
       <div class="container">
-          <img class="logo" src="docs/img/notilogolight.svg" alt="Noti javascript plugin">
+          <img class="logo" src="img/notilogolight.svg" alt="Noti javascript plugin">
           <br>
           <br>
           <h2>plain javascript popup plugin</h2>
@@ -103,6 +104,19 @@
         </div>
       </div>
 
+      <div class="container" id="theme">
+        <br>
+        <br>
+        <h3>switch theme</h3>
+      </div>
+      <div class="container">
+        <p>
+          <button class="button" id="switch-theme">switch to <span>dark</span> theme</button>
+        </p>
+      </div>
+      <br>
+      <br>
+
       <br>
       <br>
       <br>
@@ -144,16 +158,24 @@
       <pre class="pane">
         <code>
           <span class="code-el">noti</span>({<br>
-            <span class="code-attr">&nbsp;&nbsp;type</span>: <span class="code-prop">'default'</span>,&nbsp;<span class="code-comment">// string</span><br>
-            <span class="code-attr">&nbsp;&nbsp;content</span>: <span class="code-prop">''</span>,&nbsp;<span class="code-comment">// string</span><br>
-            <span class="code-attr">&nbsp;&nbsp;position</span>: <span class="code-prop">'top-right'</span>,&nbsp;<span class="code-comment">// string</span><br>
-            <span class="code-attr">&nbsp;&nbsp;autoOpen</span>: <span class="code-prop">true</span>,&nbsp;<span class="code-comment">// boolean</span><br>
-            <span class="code-attr">&nbsp;&nbsp;autoOpenDelay</span>: <span class="code-prop">10</span>,&nbsp;<span class="code-comment">// number</span><br>
-            <span class="code-attr">&nbsp;&nbsp;autoClose</span>: <span class="code-prop">false</span>,&nbsp;<span class="code-comment">// boolean</span><br>
-            <span class="code-attr">&nbsp;&nbsp;autoCloseDelay</span>: <span class="code-prop">1500</span>&nbsp;<span class="code-comment">// number</span><br>
+            <span class="code-comment">&nbsp;&nbsp;// Changes the context ui theme. Available states: 'default', 'success', 'warning' & 'error'</span><br>
+            <span class="code-attr">&nbsp;&nbsp;type</span>: <span class="code-prop">'default'</span>,<br>
+            <span class="code-comment">&nbsp;&nbsp;// Sets the content of the notifier</span><br>
+            <span class="code-attr">&nbsp;&nbsp;content</span>: <span class="code-prop">''</span>,<br>
+            <span class="code-comment">&nbsp;&nbsp;// Sets the notifier position. Available positions: 'top-left', 'top-center', 'top-right', 'bottom-right', 'bottom-center', 'bottom-left'</span><br>
+            <span class="code-attr">&nbsp;&nbsp;position</span>: <span class="code-prop">'top-right'</span>,<br>
+            <span class="code-comment">&nbsp;&nbsp;// Auto opens the notifier</span><br>
+            <span class="code-attr">&nbsp;&nbsp;autoOpen</span>: <span class="code-prop">true</span>,<br>
+            <span class="code-comment">&nbsp;&nbsp;// Sets the autoOpen delay in miliseconds</span><br>
+            <span class="code-attr">&nbsp;&nbsp;autoOpenDelay</span>: <span class="code-prop">10</span>,<br>
+            <span class="code-comment">&nbsp;&nbsp;// Sets the autoClose delay in miliseconds</span><br>
+            <span class="code-attr">&nbsp;&nbsp;autoClose</span>: <span class="code-prop">false</span>,<br>
+            <span class="code-comment">&nbsp;&nbsp;// Sets the autoClose delay in miliseconds</span><br>
+            <span class="code-attr">&nbsp;&nbsp;autoCloseDelay</span>: <span class="code-prop">1500</span><br>
           });
         </code>
       </pre>
+      
     </div>
 
     <br>

@@ -11,12 +11,6 @@ var autoprefixer = require('autoprefixer'),
     rename = require('gulp-rename'),
     runSequence = require('run-sequence');
 
-var paths = {
-  sass: 'scss/*.scss'
-};
-
-
-
 
 // -----------------------------------------------------------------------------
 // start local server ----------------------------------------------------------
@@ -51,9 +45,7 @@ gulp.task('css-compile', function() {
     ])
     .pipe(sourcemaps.init())
     .pipe(plumber())
-    .pipe(sass({
-      includePaths:['scss'],
-    }))
+    .pipe(sass())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('css'));
 });
@@ -84,8 +76,8 @@ gulp.task('css-autoprefix', function () {
 // -----------------------------------------------------------------------------
 gulp.task('css-minify', function() {
   gulp.src([
-    'css/noti-dark.css',
-    'css/noti-light.css'
+      'css/noti-dark.css',
+      'css/noti-light.css'
     ])
     .pipe(plumber())
     .pipe(cssnano({discardComments: {removeAll: true}}))
@@ -99,7 +91,7 @@ gulp.task('css-minify', function() {
 // -----------------------------------------------------------------------------
 gulp.task('js-minify', function() {
   gulp.src([
-    'js/noti.js'
+      'js/noti.js'
     ])
     .pipe(plumber())
     .pipe(uglify())
@@ -120,9 +112,5 @@ gulp.task('scss-watch', ['css-compile'], function() {
 // default gulp task  ---------------------------------------------------------
 // ----------------------------------------------------------------------------
 gulp.task('default', function() {
-  runSequence(
-              //'iconfont',
-              'browser-sync',
-              'scss-watch'
-            );
+  runSequence('browser-sync','scss-watch');
 });
